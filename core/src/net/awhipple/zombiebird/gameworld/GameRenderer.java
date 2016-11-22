@@ -45,6 +45,16 @@ public class GameRenderer {
       renderHeroPortrait(heroes[i], HERO_BAR_HORIZONTAL_SPACING + (i % HEROES_PER_ROW) * (HERO_BAR_WIDTH + HERO_BAR_HORIZONTAL_SPACING), HERO_BAR_MIN_SPACING + ((int)(i / HEROES_PER_ROW) * (HERO_BAR_HEIGHT + HERO_BAR_MIN_SPACING)));
     }
 
+    shapeRenderer.begin(ShapeType.Filled);
+    shapeRenderer.setColor(0 / 255.0f, 255 / 255.0f, 0 / 255.0f, 1);
+    shapeRenderer.rect(810, 800, HERO_BAR_WIDTH * world.getHealer().getCastPercentage(), HERO_BAR_HEIGHT);
+    shapeRenderer.end();
+
+    shapeRenderer.begin(ShapeType.Line);
+    shapeRenderer.setColor(255 / 255.0f, 255 / 255.0f, 255 / 255.0f, 1);
+    shapeRenderer.rect(810, 800, HERO_BAR_WIDTH, HERO_BAR_HEIGHT);
+    shapeRenderer.end();
+
   }
 
   private void renderHeroPortrait(Hero hero, int x, int y) {
