@@ -14,7 +14,7 @@ import net.awhipple.zombiebird.gameobjects.Raid;
 
 public class GameRenderer {
 
-  private static final int HERO_BAR_WIDTH = 300, HERO_BAR_HEIGHT = 30;
+  public static final int HERO_BAR_WIDTH = 300, HERO_BAR_HEIGHT = 30;
   private static final int HERO_BAR_MIN_SPACING = 20;
 
   private static final int HEROES_PER_ROW = (int)((ZBGame.SCREEN_W - HERO_BAR_MIN_SPACING) / (HERO_BAR_WIDTH + HERO_BAR_MIN_SPACING));
@@ -51,7 +51,6 @@ public class GameRenderer {
     }
 
     renderBar(world.getHealer().getCastPercentage(), 810, 800, HERO_BAR_WIDTH, HERO_BAR_HEIGHT, UNTARGETED_BORDER_COLOR, FILL_COLOR);
-
   }
 
   public static void setHeroPortraitLocations(Hero[] heroes) {
@@ -68,20 +67,27 @@ public class GameRenderer {
                 heroes[i].getYPos(),
                 HERO_BAR_WIDTH, HERO_BAR_HEIGHT,
                 heroes[i] == healTarget ? TARGETED_BORDER_COLOR : UNTARGETED_BORDER_COLOR,
-                FILL_COLOR
+                FILL_COLOR,
+                heroes[i] == healTarget ? 3 : 1
       );
     }
   }
 
   private void renderBar(float percentage, int x, int y, int width, int height, Color borderColor, Color fillColor) {
+    renderBar(percentage, x, y, width, height, borderColor, fillColor, 1);
+  }
+
+  private void renderBar(float percentage, int x, int y, int width, int height, Color borderColor, Color fillColor, int borderThickness) {
     shapeRenderer.begin(ShapeType.Filled);
     shapeRenderer.setColor(fillColor.getR(), fillColor.getG(), fillColor.getB(), 1);
     shapeRenderer.rect(x, y, width * percentage, height);
     shapeRenderer.end();
 
-    shapeRenderer.begin(ShapeType.Line);
-    shapeRenderer.setColor(borderColor.getR(), borderColor.getG(), borderColor.getB(), 1);
-    shapeRenderer.rect(x, y, width, height);
-    shapeRenderer.end();
+    for (int i = 0; i < borderThickness; i++) {
+      shapeRenderer.begin(ShapeType.Line);
+      shapeRenderer.setColor(borderColor.getR(), borderColor.getG(), borderColor.getB(), 1);
+      shapeRenderer.rect(x - i, y - i, width + i * 2, height + i * 2);
+      shapeRenderer.end();
+    }
   }
 }
