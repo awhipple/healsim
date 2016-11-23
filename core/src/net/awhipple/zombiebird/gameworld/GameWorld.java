@@ -14,6 +14,8 @@ public class GameWorld {
 
   public GameWorld() {
     this.raid = new Raid(20);
+    GameRenderer.setHeroPortraitLocations(raid.getHeroes());
+
     this.healer = new Healer();
     this.healer.target(raid.getHeroes()[0]);
   }

@@ -1,11 +1,13 @@
 package net.awhipple.zombiebird.gameobjects;
 
-public class Hero implements Healable {
+public class Hero implements net.awhipple.zombiebird.gameinterfaces.Healable {
   private float currentHP, maxHP;
+  private int xPos, yPos;
 
   public Hero() {
     this.maxHP = 100f;
     this.currentHP = maxHP;
+    this.xPos = this.yPos = 0;
   }
 
   public void dealDamage(float damage) {
@@ -21,4 +23,10 @@ public class Hero implements Healable {
   public float getCurrentHP() { return currentHP; }
   public float getMaxHP() { return maxHP; }
   public float getHPPercentage() { return currentHP / maxHP; }
+
+  public int getXPos() { return xPos; }
+  public int getYPos() { return yPos; }
+
+  public void setXPos(int xPos) { this.xPos = xPos; }
+  public void setYPos(int yPos) { this.yPos = yPos; }
 }
