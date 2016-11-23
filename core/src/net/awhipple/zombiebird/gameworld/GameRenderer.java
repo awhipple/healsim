@@ -16,7 +16,7 @@ public class GameRenderer {
   private static final int HERO_BAR_WIDTH = 300, HERO_BAR_HEIGHT = 30;
   private static final int HERO_BAR_MIN_SPACING = 20;
 
-  private static final int HEROES_PER_ROW = (int)((ZBGame.SCREEN_W - HERO_BAR_MIN_SPACING * 2) / (HERO_BAR_WIDTH + HERO_BAR_MIN_SPACING));
+  private static final int HEROES_PER_ROW = (int)((ZBGame.SCREEN_W - HERO_BAR_MIN_SPACING) / (HERO_BAR_WIDTH + HERO_BAR_MIN_SPACING));
   private static final int HERO_BAR_HORIZONTAL_SPACING = (ZBGame.SCREEN_W - HERO_BAR_WIDTH * HEROES_PER_ROW) / (HEROES_PER_ROW + 1);
 
   private GameWorld world;
@@ -45,28 +45,23 @@ public class GameRenderer {
       renderHeroPortrait(heroes[i], HERO_BAR_HORIZONTAL_SPACING + (i % HEROES_PER_ROW) * (HERO_BAR_WIDTH + HERO_BAR_HORIZONTAL_SPACING), HERO_BAR_MIN_SPACING + ((int)(i / HEROES_PER_ROW) * (HERO_BAR_HEIGHT + HERO_BAR_MIN_SPACING)));
     }
 
-    shapeRenderer.begin(ShapeType.Filled);
-    shapeRenderer.setColor(0 / 255.0f, 255 / 255.0f, 0 / 255.0f, 1);
-    shapeRenderer.rect(810, 800, HERO_BAR_WIDTH * world.getHealer().getCastPercentage(), HERO_BAR_HEIGHT);
-    shapeRenderer.end();
-
-    shapeRenderer.begin(ShapeType.Line);
-    shapeRenderer.setColor(255 / 255.0f, 255 / 255.0f, 255 / 255.0f, 1);
-    shapeRenderer.rect(810, 800, HERO_BAR_WIDTH, HERO_BAR_HEIGHT);
-    shapeRenderer.end();
+    renderBar(world.getHealer().getCastPercentage(), 810, 800, HERO_BAR_WIDTH, HERO_BAR_HEIGHT);
 
   }
 
   private void renderHeroPortrait(Hero hero, int x, int y) {
+    renderBar(hero.getHPPercentage(), x, y, HERO_BAR_WIDTH, HERO_BAR_HEIGHT);
+  }
 
+  private void renderBar(float percentage, int x, int y, int width, int height) {
     shapeRenderer.begin(ShapeType.Filled);
     shapeRenderer.setColor(0 / 255.0f, 255 / 255.0f, 0 / 255.0f, 1);
-    shapeRenderer.rect(x, y, HERO_BAR_WIDTH * hero.getHPPercentage(), HERO_BAR_HEIGHT);
+    shapeRenderer.rect(x, y, width * percentage, height);
     shapeRenderer.end();
 
     shapeRenderer.begin(ShapeType.Line);
     shapeRenderer.setColor(255 / 255.0f, 255 / 255.0f, 255 / 255.0f, 1);
-    shapeRenderer.rect(x, y, HERO_BAR_WIDTH, HERO_BAR_HEIGHT);
+    shapeRenderer.rect(x, y, width, height);
     shapeRenderer.end();
   }
 }
