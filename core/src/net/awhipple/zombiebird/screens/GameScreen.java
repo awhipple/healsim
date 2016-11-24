@@ -4,6 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 
+import net.awhipple.zombiebird.gamehelpers.InputHandler;
 import net.awhipple.zombiebird.gameworld.GameRenderer;
 import net.awhipple.zombiebird.gameworld.GameWorld;
 
@@ -11,15 +12,18 @@ public class GameScreen implements Screen {
 
   private GameWorld world;
   private GameRenderer renderer;
+  private InputHandler inputHandler;
 
   public GameScreen() {
     Gdx.app.log("GameScreen", "Attached");
     world = new GameWorld();
     renderer = new GameRenderer(world);
+    inputHandler = new InputHandler(world);
   }
 
   @Override
   public void render(float delta) {
+    inputHandler.processInput();
     world.update(delta);
     renderer.render();
   }

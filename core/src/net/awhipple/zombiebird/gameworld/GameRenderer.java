@@ -50,7 +50,9 @@ public class GameRenderer {
       renderHeroPortraits(heroes, world.getHealer().getTarget());
     }
 
-    renderBar(world.getHealer().getCastPercentage(), 810, 800, HERO_BAR_WIDTH, HERO_BAR_HEIGHT, UNTARGETED_BORDER_COLOR, FILL_COLOR);
+    if(world.getHealer().getCastPercentage() > 0) {
+      renderBar(world.getHealer().getCastPercentage(), 810, 800, HERO_BAR_WIDTH, HERO_BAR_HEIGHT, UNTARGETED_BORDER_COLOR, new Color(67, 149, 204));
+    }
   }
 
   public static void setHeroPortraitLocations(Hero[] heroes) {
