@@ -8,17 +8,11 @@ public class Heal extends Spell {
 
   public Heal(Healable target) {
     super(1.0f);
-
     this.target = target;
   }
 
   @Override
-  public void update(float delta) {
-    super.update(delta);
-
-    if(castStatus() == 1 && casting) {
-      target.heal(60.0f);
-      casting = false;
-    }
+  public void resolveSpell() {
+    target.heal(60.0f);
   }
 }

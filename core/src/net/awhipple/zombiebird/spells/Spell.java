@@ -14,9 +14,17 @@ public class Spell {
     if(castTimeRemaining <= 0) {
       castTimeRemaining = 0;
     }
+
+    if(castStatus() == 1 && casting) {
+      resolveSpell();
+      casting = false;
+    }
+
   };
 
   public float castStatus() {
     return (originalCastTime - castTimeRemaining) / originalCastTime;
   }
+
+  public void resolveSpell() {}
 }
