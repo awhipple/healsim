@@ -5,12 +5,17 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
+import com.badlogic.gdx.math.Vector;
+import com.sun.org.apache.xpath.internal.operations.Mod;
 
 import net.awhipple.zombiebird.ZBGame;
 import net.awhipple.zombiebird.gamehelpers.Color;
 import net.awhipple.zombiebird.gameinterfaces.Healable;
 import net.awhipple.zombiebird.gameobjects.Hero;
 import net.awhipple.zombiebird.gameobjects.Raid;
+import net.awhipple.zombiebird.mod.Modification;
+
+import java.util.Iterator;
 
 public class GameRenderer {
 
@@ -72,6 +77,16 @@ public class GameRenderer {
                 FILL_COLOR,
                 heroes[i] == healTarget ? 3 : 1
       );
+      Iterator<Modification> itr = heroes[i].getMods().iterator();
+      int buffOffset = 0;
+      while(itr.hasNext()) {
+        Modification mod = itr.next();
+        shapeRenderer.begin(ShapeType.Filled);
+        shapeRenderer.setColor(0, 1, 0, 1);
+        shapeRenderer.rect(heroes[i].getXPos() + buffOffset * 15, heroes[i].getYPos() + HERO_BAR_HEIGHT + 5, 10, 10);
+        shapeRenderer.end();
+        buffOffset++;
+      }
     }
   }
 

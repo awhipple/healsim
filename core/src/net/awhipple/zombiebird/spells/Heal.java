@@ -1,6 +1,8 @@
 package net.awhipple.zombiebird.spells;
 
 import net.awhipple.zombiebird.gameinterfaces.Healable;
+import net.awhipple.zombiebird.mod.Modification;
+import net.awhipple.zombiebird.mod.Rejuvinate;
 
 public class Heal extends Spell {
 
@@ -13,6 +15,7 @@ public class Heal extends Spell {
 
   @Override
   public void resolveSpell() {
-    target.heal(60.0f);
+    target.heal(30.0f);
+    target.addMod(new Rejuvinate(target));
   }
 }
