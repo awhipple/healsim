@@ -1,7 +1,7 @@
 package net.awhipple.zombiebird.mod;
 
 public class Modification {
-  private float timer;
+  protected float timer;
 
   public Modification(float timer) {
     this.timer = timer;

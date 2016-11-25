@@ -8,6 +8,7 @@ import net.awhipple.zombiebird.gameobjects.Hero;
 import net.awhipple.zombiebird.gameworld.GameRenderer;
 import net.awhipple.zombiebird.gameworld.GameWorld;
 import net.awhipple.zombiebird.spells.Heal;
+import net.awhipple.zombiebird.spells.Rejuvination;
 import net.awhipple.zombiebird.spells.Trainquility;
 
 public class InputHandler {
@@ -39,6 +40,10 @@ public class InputHandler {
     }
 
     if(Gdx.input.isKeyPressed(Input.Keys.NUM_2)) {
+      healer.startCast(new Rejuvination(healer.getTarget()));
+    }
+
+    if(Gdx.input.isKeyPressed(Input.Keys.NUM_3)) {
       healer.startCast(new Trainquility(world.getRaid().getHeroes()));
     }
 

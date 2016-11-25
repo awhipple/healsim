@@ -26,6 +26,7 @@ public class Hero implements net.awhipple.zombiebird.gameinterfaces.Healable {
     currentHP -= damage;
     if(currentHP <= 0) {
       currentHP = 0;
+      modifications.removeAllElements();
       dead = true;
     }
   }

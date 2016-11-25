@@ -23,7 +23,7 @@ public class Spell {
   };
 
   public float castStatus() {
-    return (originalCastTime - castTimeRemaining) / originalCastTime;
+    return originalCastTime == 0 ? 1 : (originalCastTime - castTimeRemaining) / originalCastTime;
   }
 
   public void resolveSpell() {}
