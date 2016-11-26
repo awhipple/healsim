@@ -11,6 +11,7 @@ import com.sun.org.apache.xpath.internal.operations.Mod;
 import net.awhipple.zombiebird.ZBGame;
 import net.awhipple.zombiebird.gamehelpers.Color;
 import net.awhipple.zombiebird.gameinterfaces.Healable;
+import net.awhipple.zombiebird.gameobjects.Healer;
 import net.awhipple.zombiebird.gameobjects.Hero;
 import net.awhipple.zombiebird.gameobjects.Raid;
 import net.awhipple.zombiebird.mod.Modification;
@@ -32,9 +33,11 @@ public class GameRenderer {
   private GameWorld world;
   private OrthographicCamera cam;
   private ShapeRenderer shapeRenderer;
+  private Healer healer;
 
   public GameRenderer(GameWorld world) {
     this.world = world;
+    this.healer = world.getRaid().getHealer();
 
     cam = new OrthographicCamera();
     cam.setToOrtho(true, ZBGame.SCREEN_W, ZBGame.SCREEN_H);
@@ -44,19 +47,17 @@ public class GameRenderer {
   }
 
   public void render() {
-    Gdx.app.log("GameRenderer", "render");
-
     Gdx.gl.glClearColor(0, 0, 0, 1);
     Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
     Raid raid = world.getRaid();
     Hero[] heroes = raid.getHeroes();
     for(int i = 0; i < heroes.length; i++) {
-      renderHeroPortraits(heroes, world.getHealer().getTarget());
+      renderHeroPortraits(heroes, healer.getTarget());
     }
 
-    if(world.getHealer().getCastPercentage() > 0) {
-      renderBar(world.getHealer().getCastPercentage(), 810, 800, HERO_BAR_WIDTH, HERO_BAR_HEIGHT, UNTARGETED_BORDER_COLOR, new Color(67, 149, 204));
+    if(healer.getCastPercentage() > 0) {
+      renderBar(healer.getCastPercentage(), 810, 800, HERO_BAR_WIDTH, HERO_BAR_HEIGHT, UNTARGETED_BORDER_COLOR, new Color(67, 149, 204));
     }
   }
 

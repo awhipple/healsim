@@ -24,8 +24,8 @@ public class Heal extends Spell {
 
   public static class Factory implements SpellFactory {
     @Override
-    public Spell getSpell(Raid raid, Healable target) {
-      return new Heal(target);
+    public Spell getSpell(Raid raid) {
+      return new Heal(raid.getHealer().getTarget());
     }
   }
 }

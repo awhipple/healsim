@@ -9,21 +9,28 @@ import net.awhipple.zombiebird.gameworld.GameRenderer;
 import net.awhipple.zombiebird.gameworld.GameWorld;
 import net.awhipple.zombiebird.spells.Heal;
 import net.awhipple.zombiebird.spells.Rejuvination;
+import net.awhipple.zombiebird.spells.Spell;
 import net.awhipple.zombiebird.spells.SpellFactory;
 import net.awhipple.zombiebird.spells.Trainquility;
+
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
 
 public class InputHandler {
   private GameWorld world;
   SpellFactory spellFactories[];
+  List<Pair<Integer, SpellFactory>> keyBinds;
 
   public InputHandler(GameWorld world) {
     this.world = world;
     spellFactories = new SpellFactory[] { null, new Heal.Factory(), new Rejuvination.Factory(), new Trainquility.Factory() };
+    keyBinds = getSpellBinds();
   };
 
   public void processInput() {
     Hero[] heroes = world.getRaid().getHeroes();
-    Healer healer = world.getHealer();
+    Healer healer = world.getRaid().getHealer();
 
     if(Gdx.input.isButtonPressed(Input.Buttons.LEFT)) {
       int clickX = Gdx.input.getX();
@@ -38,22 +45,31 @@ public class InputHandler {
       }
     }
 
-    for(int i = 0; i < spellFactories.length; i++) {
-      try {
-        int key = Input.Keys.class.getDeclaredField("NUM_" + Integer.toString(i)).getInt(null);
-        if (Gdx.input.isKeyPressed(key)) {
-          if (healer.getTarget() != null) {
-            healer.startCast(spellFactories[i].getSpell(world.getRaid(), healer.getTarget()));
-          }
-        }
-      } catch (Exception ex) {
-        System.out.println("Failed to retrieve key");
+    Iterator<Pair<Integer, SpellFactory>> iterator = keyBinds.iterator();
+    while(iterator.hasNext()) {
+      Pair<Integer, SpellFactory> keyBind = iterator.next();
+      if(Gdx.input.isKeyPressed(keyBind.getLeft())) {
+        healer.startCast(keyBind.getRight().getSpell(world.getRaid()));
       }
     }
 
     if(Gdx.input.isKeyPressed(Input.Keys.ESCAPE)) {
       healer.stopCast();
     }
+  }
+
+  private List<Pair<Integer, SpellFactory>> getSpellBinds() {
+    List<Pair<Integer, SpellFactory>> keyBinds = new ArrayList<Pair<Integer, SpellFactory>>();
+
+    keyBinds.add(getKeyBind(Input.Keys.NUM_1, new Heal.Factory()));
+    keyBinds.add(getKeyBind(Input.Keys.NUM_2, new Rejuvination.Factory()));
+    keyBinds.add(getKeyBind(Input.Keys.NUM_3, new Trainquility.Factory()));
+
+    return keyBinds;
+  }
+
+  private Pair<Integer, SpellFactory> getKeyBind(int key, SpellFactory spellFactory) {
+    return new Pair(new Integer(key), spellFactory);
   }
 }
 

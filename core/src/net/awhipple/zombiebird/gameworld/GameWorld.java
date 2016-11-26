@@ -12,19 +12,17 @@ import net.awhipple.zombiebird.gameobjects.Raid;
 public class GameWorld {
 
   private Raid raid = new Raid(20);
-  private Healer healer;
   private float tankHit;
 
   public GameWorld() {
     this.raid = new Raid(20);
     GameRenderer.setHeroPortraitLocations(raid.getHeroes());
 
-    this.healer = new Healer(raid);
     tankHit = 2.0f;
   }
 
   public void update(float delta) {
-    Gdx.app.log("GameWorld", "update");
+    Gdx.app.log("Gameworld", "updating");
 
     Hero[] heroes = raid.getHeroes();
     for(int i = 0; i < heroes.length; i++) {
@@ -34,13 +32,17 @@ public class GameWorld {
     if (Math.random() > 0.98) heroes[(int) (Math.random() * heroes.length)].dealDamage(30.0f);
     tankHit -= delta;
     if(tankHit <= 0) {
-      tankHit += 2.0f;
-      heroes[0].dealDamage(15.0f);
+      if(heroes[0].isDead() && tankHit <= -2.0f) {
+        heroes[(int)(Math.random()*heroes.length)].dealDamage(100.0f);
+        tankHit += 4.0f;
+      } else if(!heroes[0].isDead()) {
+        tankHit += 2.0f;
+        heroes[0].dealDamage(15.0f);
+      }
     }
 
-    healer.update(delta);
+    if(!heroes[1].isDead()) raid.getHealer().update(delta);
   }
 
   public Raid getRaid() { return raid; }
-  public Healer getHealer() { return healer; }
 }
