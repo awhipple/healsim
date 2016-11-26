@@ -29,4 +29,10 @@ public class Trainquility extends Spell {
     }
   }
 
+  public static class Factory implements SpellFactory {
+    @Override
+    public Spell getSpell(Raid raid, Healable target) {
+      return new Trainquility(raid.getHeroes());
+    }
+  }
 }

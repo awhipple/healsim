@@ -9,14 +9,17 @@ import net.awhipple.zombiebird.gameworld.GameRenderer;
 import net.awhipple.zombiebird.gameworld.GameWorld;
 import net.awhipple.zombiebird.spells.Heal;
 import net.awhipple.zombiebird.spells.Rejuvination;
+import net.awhipple.zombiebird.spells.SpellFactory;
 import net.awhipple.zombiebird.spells.Trainquility;
 
 public class InputHandler {
   private GameWorld world;
+  SpellFactory spellFactories[];
 
   public InputHandler(GameWorld world) {
     this.world = world;
-  }
+    spellFactories = new SpellFactory[] { null, new Heal.Factory(), new Rejuvination.Factory(), new Trainquility.Factory() };
+  };
 
   public void processInput() {
     Hero[] heroes = world.getRaid().getHeroes();
@@ -35,16 +38,17 @@ public class InputHandler {
       }
     }
 
-    if(Gdx.input.isKeyPressed(Input.Keys.NUM_1)) {
-      healer.startCast(new Heal(healer.getTarget()));
-    }
-
-    if(Gdx.input.isKeyPressed(Input.Keys.NUM_2)) {
-      healer.startCast(new Rejuvination(healer.getTarget()));
-    }
-
-    if(Gdx.input.isKeyPressed(Input.Keys.NUM_3)) {
-      healer.startCast(new Trainquility(world.getRaid().getHeroes()));
+    for(int i = 0; i < spellFactories.length; i++) {
+      try {
+        int key = Input.Keys.class.getDeclaredField("NUM_" + Integer.toString(i)).getInt(null);
+        if (Gdx.input.isKeyPressed(key)) {
+          if (healer.getTarget() != null) {
+            healer.startCast(spellFactories[i].getSpell(world.getRaid(), healer.getTarget()));
+          }
+        }
+      } catch (Exception ex) {
+        System.out.println("Failed to retrieve key");
+      }
     }
 
     if(Gdx.input.isKeyPressed(Input.Keys.ESCAPE)) {

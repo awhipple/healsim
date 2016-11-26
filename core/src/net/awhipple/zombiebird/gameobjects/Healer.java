@@ -3,6 +3,8 @@ package net.awhipple.zombiebird.gameobjects;
 import net.awhipple.zombiebird.gameinterfaces.Healable;
 import net.awhipple.zombiebird.spells.Spell;
 
+import java.util.List;
+
 public class Healer {
   private final static float HEAL_AMOUNT = 40, GLOBAL_COOL_DOWN = 1.0f;
 
@@ -49,6 +51,10 @@ public class Healer {
   public void stopCast() {
     castingSpell = null;
     queuedSpell = null;
+  }
+
+  public void setSpell(int index, Spell spell) {
+
   }
 
   public float getCastPercentage() { return castingSpell != null ? castingSpell.castStatus() : 0; }
