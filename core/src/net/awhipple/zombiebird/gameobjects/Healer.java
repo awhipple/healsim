@@ -2,6 +2,7 @@ package net.awhipple.zombiebird.gameobjects;
 
 import net.awhipple.zombiebird.gameinterfaces.Healable;
 import net.awhipple.zombiebird.spells.Spell;
+import net.awhipple.zombiebird.spells.Trainquility;
 
 import java.util.List;
 
@@ -25,7 +26,8 @@ public class Healer {
   public void update(float delta) {
 
     globalCoolDown -= delta;
-    if(castingSpell == null && queuedSpell != null && globalCoolDown <= 0) {
+    if(globalCoolDown < 0) globalCoolDown = 0;
+    if(castingSpell == null && queuedSpell != null && globalCoolDown == 0) {
       castingSpell = queuedSpell;
       queuedSpell = null;
       globalCoolDown = GLOBAL_COOL_DOWN;
@@ -37,9 +39,13 @@ public class Healer {
         castingSpell = null;
       }
     }
+
+    //************* Need a better system to track cooldowns *************************
+    Trainquility.Factory.reduceCooldown(delta);
   }
 
   public void startCast(Spell spell) {
+    if(spell == null) return;
     if(castingSpell == null && globalCoolDown <= 0f) {
       castingSpell = spell;
       globalCoolDown = GLOBAL_COOL_DOWN;
@@ -53,10 +59,8 @@ public class Healer {
     queuedSpell = null;
   }
 
-  public void setSpell(int index, Spell spell) {
-
-  }
-
   public float getCastPercentage() { return castingSpell != null ? castingSpell.castStatus() : 0; }
+  public float getCooldownTime() { return globalCoolDown; }
+  public float getCoolDownPercent() { return globalCoolDown / 1.0f; }
   public Healable getTarget() { return target; }
 }

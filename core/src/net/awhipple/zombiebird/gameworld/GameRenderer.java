@@ -1,22 +1,28 @@
 package net.awhipple.zombiebird.gameworld;
 
+import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
-import com.badlogic.gdx.math.Vector;
-import com.sun.org.apache.xpath.internal.operations.Mod;
 
 import net.awhipple.zombiebird.ZBGame;
 import net.awhipple.zombiebird.gamehelpers.Color;
+import net.awhipple.zombiebird.gamehelpers.InputHandler;
+import net.awhipple.zombiebird.gamehelpers.Pair;
 import net.awhipple.zombiebird.gameinterfaces.Healable;
 import net.awhipple.zombiebird.gameobjects.Healer;
 import net.awhipple.zombiebird.gameobjects.Hero;
 import net.awhipple.zombiebird.gameobjects.Raid;
 import net.awhipple.zombiebird.mod.Modification;
+import net.awhipple.zombiebird.spells.Heal;
+import net.awhipple.zombiebird.spells.SpellFactory;
 
 import java.util.Iterator;
+import java.util.List;
 
 public class GameRenderer {
 
@@ -34,6 +40,7 @@ public class GameRenderer {
   private OrthographicCamera cam;
   private ShapeRenderer shapeRenderer;
   private Healer healer;
+  private SpriteBatch batch;
 
   public GameRenderer(GameWorld world) {
     this.world = world;
@@ -44,6 +51,8 @@ public class GameRenderer {
 
     shapeRenderer = new ShapeRenderer();
     shapeRenderer.setProjectionMatrix(cam.combined);
+
+    batch = new SpriteBatch();
   }
 
   public void render() {
@@ -57,8 +66,10 @@ public class GameRenderer {
     }
 
     if(healer.getCastPercentage() > 0) {
-      renderBar(healer.getCastPercentage(), 810, 800, HERO_BAR_WIDTH, HERO_BAR_HEIGHT, UNTARGETED_BORDER_COLOR, new Color(67, 149, 204));
+      renderBar(healer.getCastPercentage(), 770, 800, HERO_BAR_WIDTH, HERO_BAR_HEIGHT, UNTARGETED_BORDER_COLOR, new Color(67, 149, 204));
     }
+
+    renderSpellBar(849, ZBGame.SCREEN_H-64);
   }
 
   public static void setHeroPortraitLocations(Hero[] heroes) {
@@ -106,6 +117,33 @@ public class GameRenderer {
       shapeRenderer.setColor(borderColor.getR(), borderColor.getG(), borderColor.getB(), 1);
       shapeRenderer.rect(x - i, y - i, width + i * 2, height + i * 2);
       shapeRenderer.end();
+    }
+  }
+
+  private void renderSpellBar(int x, int y) {
+    List<Pair<Integer, SpellFactory>> keyBinds = InputHandler.getKeyBinds();
+    Iterator<Pair<Integer, SpellFactory>> itr = keyBinds.iterator();
+    int xOffset = 0;
+    while(itr.hasNext()) {
+      Pair<Integer, SpellFactory> keyBind = itr.next();
+      SpellFactory spellFactory = keyBind.getRight();
+      batch.begin();
+      Sprite sprite = spellFactory.getIcon();
+      sprite.setPosition(x + xOffset - sprite.getWidth() / 2, ZBGame.SCREEN_H - y - sprite.getHeight() / 2);
+      sprite.draw(batch);
+      batch.end();
+
+      float displayCooldown = healer.getCooldownTime() > spellFactory.getCooldownTime() ? healer.getCoolDownPercent() : spellFactory.getCooldownPercent();
+
+      Gdx.gl.glEnable(GL20.GL_BLEND);
+      Gdx.gl.glBlendFunc(GL20.GL_SRC_ALPHA, GL20.GL_ONE_MINUS_SRC_ALPHA);
+      float start = (270 + 360 * (1.0f - displayCooldown)) % 360, size = 360.0f * displayCooldown;
+      shapeRenderer.begin(ShapeType.Filled);
+      shapeRenderer.setColor(0, 0, 0, 0.7f);
+      shapeRenderer.arc(x + xOffset, y, 46, start, size);
+      shapeRenderer.end();
+      Gdx.gl.glDisable(GL20.GL_BLEND);
+      xOffset += 79;
     }
   }
 }

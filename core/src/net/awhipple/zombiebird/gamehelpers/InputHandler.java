@@ -19,8 +19,8 @@ import java.util.List;
 
 public class InputHandler {
   private GameWorld world;
-  SpellFactory spellFactories[];
-  List<Pair<Integer, SpellFactory>> keyBinds;
+  private SpellFactory spellFactories[];
+  private static List<Pair<Integer, SpellFactory>> keyBinds;
 
   public InputHandler(GameWorld world) {
     this.world = world;
@@ -58,7 +58,9 @@ public class InputHandler {
     }
   }
 
-  private List<Pair<Integer, SpellFactory>> getSpellBinds() {
+  public static List<Pair<Integer, SpellFactory>> getKeyBinds() { return keyBinds; }
+
+  private static List<Pair<Integer, SpellFactory>> getSpellBinds() {
     List<Pair<Integer, SpellFactory>> keyBinds = new ArrayList<Pair<Integer, SpellFactory>>();
 
     keyBinds.add(getKeyBind(Input.Keys.NUM_1, new Heal.Factory()));
@@ -68,7 +70,7 @@ public class InputHandler {
     return keyBinds;
   }
 
-  private Pair<Integer, SpellFactory> getKeyBind(int key, SpellFactory spellFactory) {
+  private static Pair<Integer, SpellFactory> getKeyBind(int key, SpellFactory spellFactory) {
     return new Pair(new Integer(key), spellFactory);
   }
 }

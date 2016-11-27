@@ -1,12 +1,21 @@
 package net.awhipple.zombiebird.spells;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.Sprite;
+
 import net.awhipple.zombiebird.gameinterfaces.Healable;
 import net.awhipple.zombiebird.gameobjects.Raid;
-import net.awhipple.zombiebird.mod.Rejuvinate;
 
 public class Heal extends Spell {
 
   private Healable target;
+
+  private static Sprite icon;
+  static {
+    icon = new Sprite(new Texture(Gdx.files.internal("icons/spell_holy_flashheal.png")));
+  }
+  public static Sprite getIcon() { return icon; }
 
   public Heal(Healable target) {
     super(1.0f);
@@ -18,14 +27,12 @@ public class Heal extends Spell {
     target.heal(40.0f);
   }
 
-  public static Spell getSpell(Raid raid, Healable target) {
-    return new Heal(target);
-  }
-
-  public static class Factory implements SpellFactory {
+  public static class Factory extends SpellFactory {
     @Override
     public Spell getSpell(Raid raid) {
-      return new Heal(raid.getHealer().getTarget());
+      return raid.getHealer().getTarget() != null ? new Heal(raid.getHealer().getTarget()) : null;
     }
+    @Override
+    public Sprite getIcon() { return Heal.getIcon(); }
   }
 }
