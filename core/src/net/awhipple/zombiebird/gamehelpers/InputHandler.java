@@ -20,12 +20,10 @@ import java.util.List;
 public class InputHandler {
   private GameWorld world;
   private SpellFactory spellFactories[];
-  private static List<Pair<Integer, SpellFactory>> keyBinds;
 
   public InputHandler(GameWorld world) {
     this.world = world;
     spellFactories = new SpellFactory[] { null, new Heal.Factory(), new Rejuvination.Factory(), new Trainquility.Factory() };
-    keyBinds = getSpellBinds();
   };
 
   public void processInput() {
@@ -45,7 +43,7 @@ public class InputHandler {
       }
     }
 
-    Iterator<Pair<Integer, SpellFactory>> iterator = keyBinds.iterator();
+    Iterator<Pair<Integer, SpellFactory>> iterator = healer.getSkillSet().iterator();
     while(iterator.hasNext()) {
       Pair<Integer, SpellFactory> keyBind = iterator.next();
       if(Gdx.input.isKeyPressed(keyBind.getLeft())) {
@@ -57,22 +55,6 @@ public class InputHandler {
     if(Gdx.input.isKeyPressed(Input.Keys.ESCAPE)) {
       healer.stopCast();
     }
-  }
-
-  public static List<Pair<Integer, SpellFactory>> getKeyBinds() { return keyBinds; }
-
-  private static List<Pair<Integer, SpellFactory>> getSpellBinds() {
-    List<Pair<Integer, SpellFactory>> keyBinds = new ArrayList<Pair<Integer, SpellFactory>>();
-
-    keyBinds.add(getKeyBind(Input.Keys.NUM_1, new Heal.Factory()));
-    keyBinds.add(getKeyBind(Input.Keys.NUM_2, new Rejuvination.Factory()));
-    keyBinds.add(getKeyBind(Input.Keys.NUM_3, new Trainquility.Factory()));
-
-    return keyBinds;
-  }
-
-  private static Pair<Integer, SpellFactory> getKeyBind(int key, SpellFactory spellFactory) {
-    return new Pair(new Integer(key), spellFactory);
   }
 }
 

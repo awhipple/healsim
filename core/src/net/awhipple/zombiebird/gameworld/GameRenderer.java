@@ -121,7 +121,7 @@ public class GameRenderer {
   }
 
   private void renderSpellBar(int x, int y) {
-    List<Pair<Integer, SpellFactory>> keyBinds = InputHandler.getKeyBinds();
+    List<Pair<Integer, SpellFactory>> keyBinds = world.getRaid().getHealer().getSkillSet();
     Iterator<Pair<Integer, SpellFactory>> itr = keyBinds.iterator();
     int xOffset = 0;
     while(itr.hasNext()) {

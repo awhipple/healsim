@@ -1,9 +1,17 @@
 package net.awhipple.zombiebird.gameobjects;
 
+import com.badlogic.gdx.Input;
+
+import net.awhipple.zombiebird.gamehelpers.Pair;
 import net.awhipple.zombiebird.gameinterfaces.Healable;
+import net.awhipple.zombiebird.spells.Heal;
+import net.awhipple.zombiebird.spells.Rejuvination;
 import net.awhipple.zombiebird.spells.Spell;
+import net.awhipple.zombiebird.spells.SpellFactory;
 import net.awhipple.zombiebird.spells.Trainquility;
 
+import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 public class Healer {
@@ -14,9 +22,12 @@ public class Healer {
   private Spell castingSpell, queuedSpell;
   private float globalCoolDown;
 
+  private List<Pair<Integer, SpellFactory>> skillSet;
+
   public Healer(Raid raid) {
     this.raid = raid;
     globalCoolDown = 0f;
+    skillSet = generateSkillSet();
   }
 
   public void target(Healable target) {
@@ -40,8 +51,11 @@ public class Healer {
       }
     }
 
-    //************* Need a better system to track cooldowns *************************
-    Trainquility.Factory.reduceCooldown(delta);
+    Iterator<Pair<Integer, SpellFactory>> itr = skillSet.iterator();
+    while(itr.hasNext()) {
+      SpellFactory spellFactory = itr.next().getRight();
+      spellFactory.reduceCooldown(delta);
+    }
   }
 
   public void startCast(Spell spell) {
@@ -59,9 +73,25 @@ public class Healer {
     queuedSpell = null;
   }
 
-  public float getCastPercentage() { return castingSpell != null ? castingSpell.castStatus() : 0; }
+  public float getCastPercentage() { return castingSpell != null ? castingSpell.displayCastStatus() : 0; }
   //*****************************Replace method of deactivating spell visuals**********************************
   public float getCooldownTime() { return raid.getHeroes()[1].isDead() ? 10000 : globalCoolDown; }
   public float getCoolDownPercent() { return raid.getHeroes()[1].isDead() ? 1 : globalCoolDown / 1.0f; }
   public Healable getTarget() { return target; }
+
+  public List<Pair<Integer, SpellFactory>> getSkillSet() { return skillSet; }
+
+  private List<Pair<Integer, SpellFactory>> generateSkillSet() {
+    List<Pair<Integer, SpellFactory>> keyBinds = new ArrayList<Pair<Integer, SpellFactory>>();
+
+    keyBinds.add(generateSkill(Input.Keys.NUM_1, new Heal.Factory()));
+    keyBinds.add(generateSkill(Input.Keys.NUM_2, new Rejuvination.Factory()));
+    keyBinds.add(generateSkill(Input.Keys.NUM_3, new Trainquility.Factory()));
+
+    return keyBinds;
+  }
+
+  private static Pair<Integer, SpellFactory> generateSkill(int key, SpellFactory spellFactory) {
+    return new Pair(new Integer(key), spellFactory);
+  }
 }

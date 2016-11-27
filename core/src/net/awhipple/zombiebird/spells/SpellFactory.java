@@ -15,4 +15,6 @@ public abstract class SpellFactory {
   public float getCooldownPercent() {
     return 0;
   }
+
+  public void reduceCooldown(float amount) { }
 }

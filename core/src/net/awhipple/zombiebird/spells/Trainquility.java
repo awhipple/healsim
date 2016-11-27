@@ -39,8 +39,13 @@ public class Trainquility extends Spell {
     }
   }
 
+  @Override
+  public float displayCastStatus() {
+    return 1.0f - super.castStatus();
+  }
+
   public static class Factory extends SpellFactory {
-    private static float cooldown = 0;
+    private float cooldown = 0;
     private static final float BASE_COOLDOWN = 30.0f;
     @Override
     public Spell getSpell(Raid raid) {
@@ -57,8 +62,8 @@ public class Trainquility extends Spell {
     public float getCooldownTime() { return cooldown; }
     @Override
     public float getCooldownPercent() { return cooldown / BASE_COOLDOWN; }
-
-    public static void reduceCooldown(float amount) {
+    @Override
+    public void reduceCooldown(float amount) {
       cooldown -= amount;
       if(cooldown < 0) cooldown = 0;
     }

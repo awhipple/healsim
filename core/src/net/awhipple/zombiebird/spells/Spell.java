@@ -26,5 +26,9 @@ public class Spell {
     return originalCastTime == 0 ? 1 : (originalCastTime - castTimeRemaining) / originalCastTime;
   }
 
+  public float displayCastStatus() {
+    return castStatus();
+  }
+
   public void resolveSpell() {}
 }
