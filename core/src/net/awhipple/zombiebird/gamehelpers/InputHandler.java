@@ -50,6 +50,7 @@ public class InputHandler {
       Pair<Integer, SpellFactory> keyBind = iterator.next();
       if(Gdx.input.isKeyPressed(keyBind.getLeft())) {
         healer.startCast(keyBind.getRight().getSpell(world.getRaid()));
+        break;
       }
     }
 

@@ -60,7 +60,8 @@ public class Healer {
   }
 
   public float getCastPercentage() { return castingSpell != null ? castingSpell.castStatus() : 0; }
-  public float getCooldownTime() { return globalCoolDown; }
-  public float getCoolDownPercent() { return globalCoolDown / 1.0f; }
+  //*****************************Replace method of deactivating spell visuals**********************************
+  public float getCooldownTime() { return raid.getHeroes()[1].isDead() ? 10000 : globalCoolDown; }
+  public float getCoolDownPercent() { return raid.getHeroes()[1].isDead() ? 1 : globalCoolDown / 1.0f; }
   public Healable getTarget() { return target; }
 }

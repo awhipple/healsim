@@ -37,11 +37,15 @@ public class GameWorld {
         tankHit += 4.0f;
       } else if(!heroes[0].isDead()) {
         tankHit += 2.0f;
-        heroes[0].dealDamage(15.0f);
+        heroes[1].dealDamage(15.0f);
       }
     }
 
-    if(!heroes[1].isDead()) raid.getHealer().update(delta);
+    if(!heroes[1].isDead()) {
+      raid.getHealer().update(delta);
+    } else {
+      raid.getHealer().stopCast();
+    }
   }
 
   public Raid getRaid() { return raid; }
