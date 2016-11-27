@@ -10,7 +10,7 @@ public class Raid {
     for(int i = 0; i < raidSize; i++) {
       heroes[i] = new Hero();
     }
-    healer = new Healer(this);
+    healer = new Healer(this, this.heroes[1]);
   }
 
   public Hero[] getHeroes() { return heroes; }

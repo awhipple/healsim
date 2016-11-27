@@ -18,16 +18,18 @@ public class Healer {
   private final static float HEAL_AMOUNT = 40, GLOBAL_COOL_DOWN = 1.0f;
 
   private Raid raid;
+  private Hero healerHero;
   private Healable target, healTarget;
   private Spell castingSpell, queuedSpell;
   private float globalCoolDown;
 
   private List<Pair<Integer, SpellFactory>> skillSet;
 
-  public Healer(Raid raid) {
+  public Healer(Raid raid, Hero healerHero) {
     this.raid = raid;
-    globalCoolDown = 0f;
-    skillSet = generateSkillSet();
+    this.healerHero = healerHero;
+    this.globalCoolDown = 0f;
+    this.skillSet = generateSkillSet();
   }
 
   public void target(Healable target) {
@@ -73,10 +75,11 @@ public class Healer {
     queuedSpell = null;
   }
 
+  public Hero getHero() { return healerHero; }
+
   public float getCastPercentage() { return castingSpell != null ? castingSpell.displayCastStatus() : 0; }
-  //*****************************Replace method of deactivating spell visuals**********************************
-  public float getCooldownTime() { return raid.getHeroes()[1].isDead() ? 10000 : globalCoolDown; }
-  public float getCoolDownPercent() { return raid.getHeroes()[1].isDead() ? 1 : globalCoolDown / 1.0f; }
+  public float getCooldownTime() { return globalCoolDown; }
+  public float getCoolDownPercent() { return globalCoolDown / 1.0f; }
   public Healable getTarget() { return target; }
 
   public List<Pair<Integer, SpellFactory>> getSkillSet() { return skillSet; }

@@ -41,10 +41,10 @@ public class GameWorld {
       }
     }
 
-    if(!heroes[1].isDead()) {
-      raid.getHealer().update(delta);
-    } else {
+    if(raid.getHealer().getHero().isDead()) {
       raid.getHealer().stopCast();
+    } else {
+      raid.getHealer().update(delta);
     }
   }
 

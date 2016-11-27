@@ -133,7 +133,12 @@ public class GameRenderer {
       sprite.draw(batch);
       batch.end();
 
-      float displayCooldown = healer.getCooldownTime() > spellFactory.getCooldownTime() ? healer.getCoolDownPercent() : spellFactory.getCooldownPercent();
+      float displayCooldown;
+      if(healer.getHero().isDead()) {
+        displayCooldown = 1.0f;
+      } else {
+        displayCooldown = healer.getCooldownTime() > spellFactory.getCooldownTime() ? healer.getCoolDownPercent() : spellFactory.getCooldownPercent();
+      }
 
       Gdx.gl.glEnable(GL20.GL_BLEND);
       Gdx.gl.glBlendFunc(GL20.GL_SRC_ALPHA, GL20.GL_ONE_MINUS_SRC_ALPHA);
