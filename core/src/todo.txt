@@ -1,4 +1,3 @@
-Boss
-Class role icons
 Buff Icons
+Web Deploy
 Text

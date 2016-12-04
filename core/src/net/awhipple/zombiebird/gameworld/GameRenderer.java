@@ -3,6 +3,7 @@ package net.awhipple.zombiebird.gameworld;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
@@ -22,6 +23,8 @@ import net.awhipple.zombiebird.spells.SpellFactory;
 import java.util.Iterator;
 import java.util.List;
 
+import static net.awhipple.zombiebird.gamehelpers.GameUtility.drawSprite;
+
 public class GameRenderer {
 
   public static final int HERO_BAR_WIDTH = 300, HERO_BAR_HEIGHT = 30;
@@ -39,6 +42,9 @@ public class GameRenderer {
   private ShapeRenderer shapeRenderer;
   private Healer healer;
   private SpriteBatch batch;
+
+  private static Sprite tankIcon, healerIcon, dpsIcon;
+  static { loadAssets(); }
 
   public GameRenderer(GameWorld world) {
     this.world = world;
@@ -91,6 +97,19 @@ public class GameRenderer {
                 FILL_COLOR,
                 heroes[i] == healTarget ? 3 : 1
       );
+
+      Sprite roleIcon;
+      switch (heroes[i].getRole()) {
+        case TANK:    roleIcon = tankIcon;
+                      break;
+        case HEALER:  roleIcon = healerIcon;
+                      break;
+        case DPS:     roleIcon = dpsIcon;
+                      break;
+        default:      roleIcon = null;
+      }
+      drawSprite(roleIcon, batch, heroes[i].getXPos() + 1, heroes[i].getYPos() + 1);
+
       Iterator<Modification> itr = heroes[i].getMods().iterator();
       int buffOffset = 0;
       while(itr.hasNext()) {
@@ -152,5 +171,12 @@ public class GameRenderer {
       Gdx.gl.glDisable(GL20.GL_BLEND);
       xOffset += 79;
     }
+  }
+
+  private static void loadAssets() {
+    Texture roleIconsTexture = new Texture(Gdx.files.internal("roles/roles.png"));
+    tankIcon = new Sprite(roleIconsTexture, 0, 20, 20, 20);
+    healerIcon = new Sprite(roleIconsTexture, 20, 0, 20, 20);
+    dpsIcon = new Sprite(roleIconsTexture, 20, 20, 20, 20);
   }
 }

@@ -12,7 +12,16 @@ public class Raid {
   public Raid(int raidSize) {
     this.heroes = new Hero[raidSize];
     for(int i = 0; i < raidSize; i++) {
-      heroes[i] = new Hero(this);
+      Hero.Role role;
+      switch(i) {
+        case 0:   role = Hero.Role.TANK;
+                  break;
+        case 1:   role = Hero.Role.HEALER;
+                  break;
+        default:  role = Hero.Role.DPS;
+                  break;
+      }
+      heroes[i] = new Hero(this, role);
     }
     healer = new Healer(this, this.heroes[1]);
 

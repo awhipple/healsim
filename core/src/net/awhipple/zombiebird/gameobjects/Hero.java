@@ -16,7 +16,9 @@ public class Hero implements net.awhipple.zombiebird.gameinterfaces.Healable {
 
   private Raid raid;
 
-  public Hero(Raid raid) {
+  private Role role;
+
+  public Hero(Raid raid, Role role) {
     this.maxHP = 100f;
     this.currentHP = maxHP;
     this.xPos = this.yPos = 0;
@@ -24,6 +26,7 @@ public class Hero implements net.awhipple.zombiebird.gameinterfaces.Healable {
     this.dead = false;
 
     this.raid = raid;
+    this.role = role;
   }
 
   public void dealDamage(float damage) {
@@ -71,4 +74,8 @@ public class Hero implements net.awhipple.zombiebird.gameinterfaces.Healable {
 
   public void setXPos(int xPos) { this.xPos = xPos; }
   public void setYPos(int yPos) { this.yPos = yPos; }
+
+  public Role getRole() { return role; }
+
+  public static enum Role {TANK, HEALER, DPS}
 }
