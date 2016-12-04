@@ -22,8 +22,6 @@ public class GameWorld {
   }
 
   public void update(float delta) {
-    Gdx.app.log("Gameworld", "updating");
-
     Hero[] heroes = raid.getHeroes();
     for(int i = 0; i < heroes.length; i++) {
       heroes[i].updateMods(delta);

@@ -33,7 +33,7 @@ public class Boss {
         if (heroes[0].isDead()) {
           Hero targetHero = targetRaid.getRandomHero();
           if (targetHero != null) targetHero.dealDamage(100.0f);
-          meleeTimer += 4.0f;
+          meleeTimer += 3.0f;
         } else {
           heroes[0].dealDamage(15.0f);
           meleeTimer += 2.0f;

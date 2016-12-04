@@ -13,6 +13,7 @@ import net.awhipple.zombiebird.ZBGame;
 import net.awhipple.zombiebird.bosses.Boss;
 import net.awhipple.zombiebird.gamehelpers.Color;
 import net.awhipple.zombiebird.gamehelpers.Pair;
+import net.awhipple.zombiebird.gamehelpers.SpriteLoader;
 import net.awhipple.zombiebird.gameinterfaces.Healable;
 import net.awhipple.zombiebird.gameobjects.Healer;
 import net.awhipple.zombiebird.gameobjects.Hero;
@@ -98,17 +99,18 @@ public class GameRenderer {
                 heroes[i] == healTarget ? 3 : 1
       );
 
-      Sprite roleIcon;
+      String spriteName;
       switch (heroes[i].getRole()) {
-        case TANK:    roleIcon = tankIcon;
+        case TANK:    spriteName = "tank";
                       break;
-        case HEALER:  roleIcon = healerIcon;
+
+        case HEALER:  spriteName = "healer";
                       break;
-        case DPS:     roleIcon = dpsIcon;
+        case DPS:
+        default:      spriteName = "dps";
                       break;
-        default:      roleIcon = null;
       }
-      drawSprite(roleIcon, batch, heroes[i].getXPos() + 1, heroes[i].getYPos() + 1);
+      drawSprite(SpriteLoader.getSprite("roles.roles", spriteName), batch, heroes[i].getXPos() + 1, heroes[i].getYPos() + 1);
 
       Iterator<Modification> itr = heroes[i].getMods().iterator();
       int buffOffset = 0;
