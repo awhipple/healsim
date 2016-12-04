@@ -5,20 +5,20 @@ import com.badlogic.gdx.Input;
 import com.badlogic.gdx.math.Rectangle;
 
 import net.awhipple.zombiebird.ZBGame;
+import net.awhipple.zombiebird.bosses.Boss;
 import net.awhipple.zombiebird.gameobjects.Healer;
 import net.awhipple.zombiebird.gameobjects.Hero;
 import net.awhipple.zombiebird.gameobjects.Raid;
 
 public class GameWorld {
 
-  private Raid raid = new Raid(20);
-  private float tankHit;
+  private Raid raid;
+  private Boss boss;
 
   public GameWorld() {
     this.raid = new Raid(20);
+    this.boss = new Boss(100.0f, this.raid);
     GameRenderer.setHeroPortraitLocations(raid.getHeroes());
-
-    tankHit = 2.0f;
   }
 
   public void update(float delta) {
@@ -29,17 +29,7 @@ public class GameWorld {
       heroes[i].updateMods(delta);
     }
 
-    if (Math.random() > 0.98) heroes[(int) (Math.random() * heroes.length)].dealDamage(30.0f);
-    tankHit -= delta;
-    if(tankHit <= 0) {
-      if(heroes[0].isDead() && tankHit <= -2.0f) {
-        heroes[(int)(Math.random()*heroes.length)].dealDamage(100.0f);
-        tankHit += 4.0f;
-      } else if(!heroes[0].isDead()) {
-        tankHit += 2.0f;
-        heroes[0].dealDamage(15.0f);
-      }
-    }
+    boss.update(delta);
 
     if(raid.getHealer().getHero().isDead()) {
       raid.getHealer().stopCast();
@@ -49,4 +39,5 @@ public class GameWorld {
   }
 
   public Raid getRaid() { return raid; }
+  public Boss getBoss() { return boss; }
 }

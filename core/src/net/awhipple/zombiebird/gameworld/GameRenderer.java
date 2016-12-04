@@ -1,6 +1,5 @@
 package net.awhipple.zombiebird.gameworld;
 
-import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
@@ -10,15 +9,14 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
 
 import net.awhipple.zombiebird.ZBGame;
+import net.awhipple.zombiebird.bosses.Boss;
 import net.awhipple.zombiebird.gamehelpers.Color;
-import net.awhipple.zombiebird.gamehelpers.InputHandler;
 import net.awhipple.zombiebird.gamehelpers.Pair;
 import net.awhipple.zombiebird.gameinterfaces.Healable;
 import net.awhipple.zombiebird.gameobjects.Healer;
 import net.awhipple.zombiebird.gameobjects.Hero;
 import net.awhipple.zombiebird.gameobjects.Raid;
 import net.awhipple.zombiebird.mod.Modification;
-import net.awhipple.zombiebird.spells.Heal;
 import net.awhipple.zombiebird.spells.SpellFactory;
 
 import java.util.Iterator;
@@ -27,7 +25,7 @@ import java.util.List;
 public class GameRenderer {
 
   public static final int HERO_BAR_WIDTH = 300, HERO_BAR_HEIGHT = 30;
-  private static final int HERO_BAR_MIN_SPACING = 20;
+  private static final int HERO_BAR_MIN_SPACING = 20, HERO_BAR_Y_OFFSET = 100;
 
   private static final int HEROES_PER_ROW = (int)((ZBGame.SCREEN_W - HERO_BAR_MIN_SPACING) / (HERO_BAR_WIDTH + HERO_BAR_MIN_SPACING));
   private static final int HERO_BAR_HORIZONTAL_SPACING = (ZBGame.SCREEN_W - HERO_BAR_WIDTH * HEROES_PER_ROW) / (HEROES_PER_ROW + 1);
@@ -61,6 +59,10 @@ public class GameRenderer {
 
     Raid raid = world.getRaid();
     Hero[] heroes = raid.getHeroes();
+    Boss boss = world.getBoss();
+
+    renderBar(boss.getHealthPercent(), 10, 10, ZBGame.SCREEN_W - 20, HERO_BAR_HEIGHT, UNTARGETED_BORDER_COLOR, new Color(255, 128, 128));
+
     for(int i = 0; i < heroes.length; i++) {
       renderHeroPortraits(heroes, healer.getTarget());
     }
@@ -75,7 +77,7 @@ public class GameRenderer {
   public static void setHeroPortraitLocations(Hero[] heroes) {
     for(int i = 0; i < heroes.length; i++) {
       heroes[i].setXPos(HERO_BAR_HORIZONTAL_SPACING + (i % HEROES_PER_ROW) * (HERO_BAR_WIDTH + HERO_BAR_HORIZONTAL_SPACING));
-      heroes[i].setYPos(HERO_BAR_MIN_SPACING + ((int)(i / HEROES_PER_ROW) * (HERO_BAR_HEIGHT + HERO_BAR_MIN_SPACING)));
+      heroes[i].setYPos(HERO_BAR_Y_OFFSET + HERO_BAR_MIN_SPACING + ((int)(i / HEROES_PER_ROW) * (HERO_BAR_HEIGHT + HERO_BAR_MIN_SPACING)));
     }
   }
 

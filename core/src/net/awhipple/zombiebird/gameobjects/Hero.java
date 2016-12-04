@@ -14,20 +14,25 @@ public class Hero implements net.awhipple.zombiebird.gameinterfaces.Healable {
   private Vector<Modification> modifications;
   private boolean dead;
 
-  public Hero() {
+  private Raid raid;
+
+  public Hero(Raid raid) {
     this.maxHP = 100f;
     this.currentHP = maxHP;
     this.xPos = this.yPos = 0;
     this.modifications = new Vector<Modification>();
     this.dead = false;
+
+    this.raid = raid;
   }
 
   public void dealDamage(float damage) {
     currentHP -= damage;
-    if(currentHP <= 0) {
+    if(currentHP <= 0 && !dead) {
       currentHP = 0;
       modifications.removeAllElements();
       dead = true;
+      raid.updateHeroStats();
     }
   }
 
@@ -55,8 +60,6 @@ public class Hero implements net.awhipple.zombiebird.gameinterfaces.Healable {
     modifications.removeAll(modsToBeDeleted);
   }
 
-  public float getCurrentHP() { return currentHP; }
-  public float getMaxHP() { return maxHP; }
   public float getHPPercentage() { return currentHP / maxHP; }
 
   public Vector<Modification> getMods() { return modifications; }
