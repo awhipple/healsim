@@ -20,7 +20,7 @@ public class Spell {
       casting = false;
     }
 
-  };
+  }
 
   public float castStatus() {
     return originalCastTime == 0 ? 1 : (originalCastTime - castTimeRemaining) / originalCastTime;

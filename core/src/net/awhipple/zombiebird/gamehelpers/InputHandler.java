@@ -24,7 +24,7 @@ public class InputHandler {
   public InputHandler(GameWorld world) {
     this.world = world;
     spellFactories = new SpellFactory[] { null, new Heal.Factory(), new Rejuvination.Factory(), new Trainquility.Factory() };
-  };
+  }
 
   public void processInput() {
     Hero[] heroes = world.getRaid().getHeroes();

@@ -77,7 +77,7 @@ public class GameRenderer {
   public static void setHeroPortraitLocations(Hero[] heroes) {
     for(int i = 0; i < heroes.length; i++) {
       heroes[i].setXPos(HERO_BAR_HORIZONTAL_SPACING + (i % HEROES_PER_ROW) * (HERO_BAR_WIDTH + HERO_BAR_HORIZONTAL_SPACING));
-      heroes[i].setYPos(HERO_BAR_Y_OFFSET + HERO_BAR_MIN_SPACING + ((int)(i / HEROES_PER_ROW) * (HERO_BAR_HEIGHT + HERO_BAR_MIN_SPACING)));
+      heroes[i].setYPos(HERO_BAR_Y_OFFSET + HERO_BAR_MIN_SPACING + (i / HEROES_PER_ROW * (HERO_BAR_HEIGHT + HERO_BAR_MIN_SPACING)));
     }
   }
 
