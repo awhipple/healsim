@@ -13,7 +13,7 @@ public class Heal extends Spell {
 
   private static Sprite icon;
   static {
-    icon = new Sprite(new Texture(Gdx.files.internal("icons/spell_holy_flashheal.png")));
+    icon = new Sprite(new Texture(Gdx.files.internal("icons/flashHeal.png")));
   }
   public static Sprite getIcon() { return icon; }
 

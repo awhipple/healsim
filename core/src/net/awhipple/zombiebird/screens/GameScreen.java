@@ -5,6 +5,7 @@ import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 
 import net.awhipple.zombiebird.gamehelpers.InputHandler;
+import net.awhipple.zombiebird.gamehelpers.SpriteLoader;
 import net.awhipple.zombiebird.gameworld.GameRenderer;
 import net.awhipple.zombiebird.gameworld.GameWorld;
 
@@ -16,6 +17,9 @@ public class GameScreen implements Screen {
 
   public GameScreen() {
     Gdx.app.log("GameScreen", "Attached");
+
+    SpriteLoader.loadAssets(new String[]{"roles.roles__2x20__2x20__flag__healer__tank__dps"});
+
     world = new GameWorld();
     renderer = new GameRenderer(world);
     inputHandler = new InputHandler(world);
@@ -55,6 +59,6 @@ public class GameScreen implements Screen {
 
   @Override
   public void dispose() {
-    // Leave blank
+    //SpriteLoader.cleanup();
   }
 }

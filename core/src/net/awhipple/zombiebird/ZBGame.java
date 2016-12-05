@@ -15,8 +15,6 @@ public class ZBGame extends Game {
   public void create() {
     Gdx.app.log("ZBGame", "created");
 
-    SpriteLoader.loadAssets();
-
     Pixmap pm = new Pixmap(Gdx.files.internal("cursor.png"));
     Gdx.graphics.setCursor(Gdx.graphics.newCursor(pm, 0, 0));
     pm.dispose();

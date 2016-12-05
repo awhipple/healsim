@@ -5,14 +5,14 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.Map;
 
 public class SpriteLoader {
 
   /*________________________________________________________________________________
 
-    Add strings to spriteNames to load new sprites.
-
+    Pass strings into loadAssets to load new sprites.
     3 modes are supported
 
     mode 1: {folderName}.{imageName} (e.g. icon.flashHeal)
@@ -41,17 +41,15 @@ public class SpriteLoader {
      Access: SpriteLoader.getSprite("roles.roles", "tank");
    */
 
-  private static String[] spriteNames = {"roles.roles__2x20__2x20__flag__healer__tank__dps"};
-
   private static Map<String, Sprite> spriteMap;
   private static Map<String, Pair<Integer, Integer>> spriteSheetNames;
 
-  public static void loadAssets() {
-    if(spriteMap != null) return;
-
+  static {
     spriteMap = new HashMap<String, Sprite>();
     spriteSheetNames = new HashMap<String, Pair<Integer, Integer>>();
+  }
 
+  public static void loadAssets(String[] spriteNames) {
     for(int i = 0; i < spriteNames.length; i++) {
       String[] imageParams = spriteNames[i].split("__");
 
@@ -68,8 +66,12 @@ public class SpriteLoader {
   }
 
   public static Sprite getSprite(String key) {
-    if(spriteMap == null) { loadAssets(); }
-    return spriteMap.get(key);
+    if(spriteMap.containsKey(key)) {
+      return spriteMap.get(key);
+    } else {
+      Gdx.app.log("SpriteLoader", "Attempted to load missing sprite, " + key);
+      return null;
+    }
   }
 
   public static Sprite getSprite(String key, int x, int y) {
