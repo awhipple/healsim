@@ -47,6 +47,11 @@ public class GameRenderer {
   private static Sprite tankIcon, healerIcon, dpsIcon;
   static { loadAssets(); }
 
+  private static Texture testTex;
+  static {
+    testTex = new Texture(Gdx.files.internal("test.png"));
+  }
+
   public GameRenderer(GameWorld world) {
     this.world = world;
     this.healer = world.getRaid().getHealer();
@@ -67,6 +72,10 @@ public class GameRenderer {
     Raid raid = world.getRaid();
     Hero[] heroes = raid.getHeroes();
     Boss boss = world.getBoss();
+
+    batch.begin();
+    batch.draw(testTex, 100, 100);
+    batch.end();
 
     renderBar(boss.getHealthPercent(), 10, 10, ZBGame.SCREEN_W - 20, HERO_BAR_HEIGHT, UNTARGETED_BORDER_COLOR, new Color(255, 128, 128));
 
