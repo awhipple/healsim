@@ -1,11 +1,16 @@
 package net.awhipple.zombiebird.gameobjects;
 
+import com.badlogic.gdx.Gdx;
 import com.sun.org.apache.xpath.internal.operations.Mod;
 
 import net.awhipple.zombiebird.mod.Modification;
 import net.awhipple.zombiebird.mod.Rejuvinate;
 
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Vector;
 
 public class Hero implements net.awhipple.zombiebird.gameinterfaces.Healable {
@@ -49,6 +54,7 @@ public class Hero implements net.awhipple.zombiebird.gameinterfaces.Healable {
   public void addMod(Modification mod) {
     modifications.add(mod);
   }
+  public void removeMod(Modification mod) { modifications.removeAll(Collections.singleton(mod)); }
 
   public void updateMods(float delta) {
     Vector<Modification> modsToBeDeleted = new Vector<Modification>();

@@ -5,6 +5,7 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 public class Spell {
   protected float castTimeRemaining, originalCastTime;
   protected boolean casting;
+
   protected static Sprite icon;
 
   public Spell(float spellCastTime) {

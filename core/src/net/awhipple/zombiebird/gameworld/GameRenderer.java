@@ -147,11 +147,9 @@ public class GameRenderer {
     while(itr.hasNext()) {
       Pair<Integer, SpellFactory> keyBind = itr.next();
       SpellFactory spellFactory = keyBind.getRight();
-      batch.begin();
+
       Sprite sprite = spellFactory.getIcon();
-      sprite.setPosition(x + xOffset - sprite.getWidth() / 2, ZBGame.SCREEN_H - y - sprite.getHeight() / 2);
-      sprite.draw(batch);
-      batch.end();
+      drawSprite(sprite, batch, x + xOffset - sprite.getWidth() / 2, y - sprite.getHeight() / 2);
 
       float displayCooldown;
       if(healer.getHero().isDead()) {

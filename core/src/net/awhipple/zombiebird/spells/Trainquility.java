@@ -12,7 +12,8 @@ import net.awhipple.zombiebird.gameobjects.Raid;
 public class Trainquility extends Spell {
 
   private static String ICON_NAME = "icons.tranquility";
-  static { icon = SpriteLoader.loadAsset(ICON_NAME); }
+  private static Sprite l_icon;
+  static { l_icon = icon = SpriteLoader.loadAsset(ICON_NAME); }
 
   private static float HEAL_PER_SECOND = 15.0f;
 
@@ -55,7 +56,7 @@ public class Trainquility extends Spell {
       }
     }
     @Override
-    public Sprite getIcon() { return icon; }
+    public Sprite getIcon() { return l_icon; }
     @Override
     public float getCooldownTime() { return cooldown; }
     @Override

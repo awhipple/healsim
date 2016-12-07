@@ -7,11 +7,11 @@ import net.awhipple.zombiebird.ZBGame;
 
 public class GameUtility {
 
-  public static void drawSprite(Sprite sprite, Batch batch, int x, int y) {
-    drawSprite(sprite, batch, x, y, (int)sprite.getWidth(), sprite.getHeight());
+  public static void drawSprite(Sprite sprite, Batch batch, float x, float y) {
+    drawSprite(sprite, batch, x, y, sprite.getWidth(), sprite.getHeight());
   }
 
-  public static void drawSprite(Sprite sprite, Batch batch, int x, int y, float w, float h) {
+  public static void drawSprite(Sprite sprite, Batch batch, float x, float y, float w, float h) {
     if(sprite != null) {
       batch.begin();
       sprite.setPosition(x, ZBGame.SCREEN_H - y - sprite.getHeight());

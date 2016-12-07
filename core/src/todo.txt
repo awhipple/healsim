@@ -1,4 +1,4 @@
+Fix shrinking spell icon problem
 Delete sprites from asset loader
 Render all sprites in one batch session
-Restrict rejuvenate to two max
 Text

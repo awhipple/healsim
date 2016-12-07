@@ -11,7 +11,8 @@ import net.awhipple.zombiebird.gameobjects.Raid;
 public class Heal extends Spell {
 
   private static String ICON_NAME = "icons.flashHeal";
-  static { icon = SpriteLoader.loadAsset(ICON_NAME); }
+  private static Sprite l_icon;
+  static { l_icon = icon = SpriteLoader.loadAsset(ICON_NAME); }
 
   private Healable target;
 
@@ -31,6 +32,6 @@ public class Heal extends Spell {
       return raid.getHealer().getTarget() != null ? new Heal(raid.getHealer().getTarget()) : null;
     }
     @Override
-    public Sprite getIcon() { return icon; }
+    public Sprite getIcon() { return l_icon; }
   }
 }
