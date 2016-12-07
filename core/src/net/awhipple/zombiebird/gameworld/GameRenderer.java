@@ -116,10 +116,7 @@ public class GameRenderer {
       int buffOffset = 0;
       while(itr.hasNext()) {
         Modification mod = itr.next();
-        shapeRenderer.begin(ShapeType.Filled);
-        shapeRenderer.setColor(0, 1, 0, 1);
-        shapeRenderer.rect(heroes[i].getXPos() + buffOffset * 15, heroes[i].getYPos() + HERO_BAR_HEIGHT + 5, 10, 10);
-        shapeRenderer.end();
+        drawSprite(mod.getIcon(), batch, heroes[i].getXPos() + buffOffset * 15, heroes[i].getYPos() + HERO_BAR_HEIGHT + 5, 10, 10);
         buffOffset++;
       }
     }

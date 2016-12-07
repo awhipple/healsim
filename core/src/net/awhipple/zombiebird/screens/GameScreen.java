@@ -18,7 +18,7 @@ public class GameScreen implements Screen {
   public GameScreen() {
     Gdx.app.log("GameScreen", "Attached");
 
-    SpriteLoader.loadAssets(new String[]{"roles.roles__2x20__2x20__flag__healer__tank__dps"});
+    SpriteLoader.loadAsset("roles.roles__2x20__2x20__flag__healer__tank__dps");
 
     world = new GameWorld();
     renderer = new GameRenderer(world);

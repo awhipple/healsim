@@ -49,9 +49,16 @@ public class SpriteLoader {
     spriteSheetNames = new HashMap<String, Pair<Integer, Integer>>();
   }
 
+  public static Sprite loadAsset(String spriteName) {
+    loadAssets(new String[]{spriteName});
+    return getSprite(spriteName);
+  }
+
   public static void loadAssets(String[] spriteNames) {
     for(int i = 0; i < spriteNames.length; i++) {
       String[] imageParams = spriteNames[i].split("__");
+
+      if(spriteMap.containsKey(imageParams[0])) continue;
 
       String fileName = imageParams[0].replaceAll("\\.", "/") + ".png";
       Texture texture = new Texture(Gdx.files.internal(fileName));

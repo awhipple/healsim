@@ -1,7 +1,4 @@
-Web Deploy
-Convert current assets to asset loader
 Delete sprites from asset loader
 Render all sprites in one batch session
-Buff Icons
-Web Deploy
+Restrict rejuvenate to two max
 Text

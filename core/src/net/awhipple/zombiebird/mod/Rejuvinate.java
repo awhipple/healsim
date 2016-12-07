@@ -1,8 +1,14 @@
 package net.awhipple.zombiebird.mod;
 
+import com.badlogic.gdx.graphics.g2d.Sprite;
+
+import net.awhipple.zombiebird.gamehelpers.SpriteLoader;
 import net.awhipple.zombiebird.gameinterfaces.Healable;
 
 public class Rejuvinate extends Modification {
+
+  private static String ICON_NAME = "icons.rejuvenation";
+  static { icon = SpriteLoader.loadAsset(ICON_NAME); }
 
   private float HEAL_PER_TICK = 10.0f;
 

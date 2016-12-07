@@ -4,6 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 
+import net.awhipple.zombiebird.gamehelpers.SpriteLoader;
 import net.awhipple.zombiebird.gameinterfaces.Healable;
 import net.awhipple.zombiebird.gameobjects.Raid;
 import net.awhipple.zombiebird.mod.Modification;
@@ -11,13 +12,10 @@ import net.awhipple.zombiebird.mod.Rejuvinate;
 
 public class Rejuvination extends Spell {
 
-  private Healable target;
+  private static String ICON_NAME = "icons.rejuvenation";
+  static { icon = SpriteLoader.loadAsset(ICON_NAME); }
 
-  private static Sprite icon;
-  static {
-    icon = new Sprite(new Texture(Gdx.files.internal("icons/spell_nature_rejuvenation.png")));
-  }
-  public static Sprite getIcon() { return icon; }
+  private Healable target;
 
   public Rejuvination(Healable target) {
     super(0f);
@@ -35,6 +33,6 @@ public class Rejuvination extends Spell {
       return new Rejuvination(raid.getHealer().getTarget());
     }
     @Override
-    public Sprite getIcon() { return Rejuvination.getIcon(); }
+    public Sprite getIcon() { return icon; }
   }
 }

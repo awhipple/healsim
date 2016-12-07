@@ -4,18 +4,16 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 
+import net.awhipple.zombiebird.gamehelpers.SpriteLoader;
 import net.awhipple.zombiebird.gameinterfaces.Healable;
 import net.awhipple.zombiebird.gameobjects.Raid;
 
 public class Heal extends Spell {
 
-  private Healable target;
+  private static String ICON_NAME = "icons.flashHeal";
+  static { icon = SpriteLoader.loadAsset(ICON_NAME); }
 
-  private static Sprite icon;
-  static {
-    icon = new Sprite(new Texture(Gdx.files.internal("icons/flashHeal.png")));
-  }
-  public static Sprite getIcon() { return icon; }
+  private Healable target;
 
   public Heal(Healable target) {
     super(1.0f);
@@ -33,6 +31,6 @@ public class Heal extends Spell {
       return raid.getHealer().getTarget() != null ? new Heal(raid.getHealer().getTarget()) : null;
     }
     @Override
-    public Sprite getIcon() { return Heal.getIcon(); }
+    public Sprite getIcon() { return icon; }
   }
 }
