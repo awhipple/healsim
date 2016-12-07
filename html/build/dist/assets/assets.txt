@@ -6,7 +6,6 @@ i:icons/spell_nature_rejuvenation.png:13859:image/png
 i:icons/spell_nature_tranquility.png:12429:image/png
 d:roles:0:application/unknown
 i:roles/roles.png:2897:image/png
-i:test.png:1026:image/png
 i:UI-CastingBar-Border.png:3480:image/png
 i:UI-CastingBar-Spark.png:618:image/png
 i:UI-Group-LeaderIcon.png:321:image/png
