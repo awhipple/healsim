@@ -9,7 +9,7 @@ import net.awhipple.zombiebird.gamehelpers.SpriteLoader;
 import net.awhipple.zombiebird.screens.GameScreen;
 
 public class ZBGame extends Game {
-  public static int SCREEN_W = 1920, SCREEN_H = 1080;
+  public static int SCREEN_W = 1024, SCREEN_H = 768;
 
   @Override
   public void create() {

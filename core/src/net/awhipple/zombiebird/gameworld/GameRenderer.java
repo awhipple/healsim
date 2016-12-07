@@ -28,7 +28,7 @@ import static net.awhipple.zombiebird.gamehelpers.GameUtility.drawSprite;
 
 public class GameRenderer {
 
-  public static final int HERO_BAR_WIDTH = 300, HERO_BAR_HEIGHT = 30;
+  public static final int HERO_BAR_WIDTH = 200, HERO_BAR_HEIGHT = 30;
   private static final int HERO_BAR_MIN_SPACING = 20, HERO_BAR_Y_OFFSET = 100;
 
   private static final int HEROES_PER_ROW = (int)((ZBGame.SCREEN_W - HERO_BAR_MIN_SPACING) / (HERO_BAR_WIDTH + HERO_BAR_MIN_SPACING));
@@ -46,11 +46,6 @@ public class GameRenderer {
 
   private static Sprite tankIcon, healerIcon, dpsIcon;
   static { loadAssets(); }
-
-  private static Texture testTex;
-  static {
-    testTex = new Texture(Gdx.files.internal("test.png"));
-  }
 
   public GameRenderer(GameWorld world) {
     this.world = world;
@@ -73,10 +68,6 @@ public class GameRenderer {
     Hero[] heroes = raid.getHeroes();
     Boss boss = world.getBoss();
 
-    batch.begin();
-    batch.draw(testTex, 100, 100);
-    batch.end();
-
     renderBar(boss.getHealthPercent(), 10, 10, ZBGame.SCREEN_W - 20, HERO_BAR_HEIGHT, UNTARGETED_BORDER_COLOR, new Color(255, 128, 128));
 
     for(int i = 0; i < heroes.length; i++) {
@@ -84,10 +75,10 @@ public class GameRenderer {
     }
 
     if(healer.getCastPercentage() > 0) {
-      renderBar(healer.getCastPercentage(), 770, 800, HERO_BAR_WIDTH, HERO_BAR_HEIGHT, UNTARGETED_BORDER_COLOR, new Color(67, 149, 204));
+      renderBar(healer.getCastPercentage(), 395, ZBGame.SCREEN_H - 150, HERO_BAR_WIDTH, HERO_BAR_HEIGHT, UNTARGETED_BORDER_COLOR, new Color(67, 149, 204));
     }
 
-    renderSpellBar(849, ZBGame.SCREEN_H-64);
+    renderSpellBar(420, ZBGame.SCREEN_H-64);
   }
 
   public static void setHeroPortraitLocations(Hero[] heroes) {
