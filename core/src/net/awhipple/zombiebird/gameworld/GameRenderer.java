@@ -119,7 +119,7 @@ public class GameRenderer {
         default:      spriteName = "dps";
                       break;
       }
-//      drawSprite(SpriteLoader.getSprite("roles.roles", spriteName), batch, heroes[i].getXPos() + 1, heroes[i].getYPos() + 1);
+      drawSprite(SpriteLoader.getSprite("roles.roles", spriteName), batch, heroes[i].getXPos() + 1, heroes[i].getYPos() + 1);
 
       Iterator<Modification> itr = heroes[i].getMods().iterator();
       int buffOffset = 0;
@@ -159,11 +159,11 @@ public class GameRenderer {
     while(itr.hasNext()) {
       Pair<Integer, SpellFactory> keyBind = itr.next();
       SpellFactory spellFactory = keyBind.getRight();
-//      batch.begin();
-//      Sprite sprite = spellFactory.getIcon();
-//      sprite.setPosition(x + xOffset - sprite.getWidth() / 2, ZBGame.SCREEN_H - y - sprite.getHeight() / 2);
-//      sprite.draw(batch);
-//      batch.end();
+      batch.begin();
+      Sprite sprite = spellFactory.getIcon();
+      sprite.setPosition(x + xOffset - sprite.getWidth() / 2, ZBGame.SCREEN_H - y - sprite.getHeight() / 2);
+      sprite.draw(batch);
+      batch.end();
 
       float displayCooldown;
       if(healer.getHero().isDead()) {
