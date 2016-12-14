@@ -1,1 +1,3 @@
 Text
+Nicer Icons
+Cooldown display on icons

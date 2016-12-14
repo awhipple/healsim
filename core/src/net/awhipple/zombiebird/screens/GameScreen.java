@@ -15,10 +15,13 @@ public class GameScreen implements Screen {
   private GameRenderer renderer;
   private InputHandler inputHandler;
 
+  private static String[] assets = {"roles.roles__2x20__2x20__flag__healer__tank__dps",
+                                    "background"};
+
   public GameScreen() {
     Gdx.app.log("GameScreen", "Attached");
 
-    SpriteLoader.loadAsset("roles.roles__2x20__2x20__flag__healer__tank__dps");
+    SpriteLoader.loadAssets(assets);
 
     world = new GameWorld();
     renderer = new GameRenderer(world);

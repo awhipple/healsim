@@ -45,7 +45,6 @@ public class GameRenderer {
   private SpriteBatch batch;
 
   private static Sprite tankIcon, healerIcon, dpsIcon;
-  static { loadAssets(); }
 
   public GameRenderer(GameWorld world) {
     this.world = world;
@@ -67,6 +66,8 @@ public class GameRenderer {
     Raid raid = world.getRaid();
     Hero[] heroes = raid.getHeroes();
     Boss boss = world.getBoss();
+
+    drawSprite(SpriteLoader.getSprite("background"), batch, 0, 0, ZBGame.SCREEN_W, ZBGame.SCREEN_H, 0.7f);
 
     renderBar(boss.getHealthPercent(), 10, 10, ZBGame.SCREEN_W - 20, HERO_BAR_HEIGHT, UNTARGETED_BORDER_COLOR, new Color(255, 128, 128));
 
@@ -168,12 +169,5 @@ public class GameRenderer {
       Gdx.gl.glDisable(GL20.GL_BLEND);
       xOffset += 79;
     }
-  }
-
-  private static void loadAssets() {
-    Texture roleIconsTexture = new Texture(Gdx.files.internal("roles/roles.png"));
-    tankIcon = new Sprite(roleIconsTexture, 0, 20, 20, 20);
-    healerIcon = new Sprite(roleIconsTexture, 20, 0, 20, 20);
-    dpsIcon = new Sprite(roleIconsTexture, 20, 20, 20, 20);
   }
 }
