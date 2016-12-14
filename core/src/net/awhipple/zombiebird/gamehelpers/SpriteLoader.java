@@ -4,8 +4,10 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
 
 public class SpriteLoader {
@@ -41,10 +43,12 @@ public class SpriteLoader {
      Access: SpriteLoader.getSprite("roles.roles", "tank");
    */
 
+  private static List<Texture> textureList;
   private static Map<String, Sprite> spriteMap;
   private static Map<String, Pair<Integer, Integer>> spriteSheetNames;
 
   static {
+    textureList = new ArrayList<Texture>();
     spriteMap = new HashMap<String, Sprite>();
     spriteSheetNames = new HashMap<String, Pair<Integer, Integer>>();
   }
@@ -62,6 +66,7 @@ public class SpriteLoader {
 
       String fileName = imageParams[0].replaceAll("\\.", "/") + ".png";
       Texture texture = new Texture(Gdx.files.internal(fileName));
+      textureList.add(texture);
 
       if(imageParams.length == 1) {
         spriteMap.put(imageParams[0], new Sprite(texture));
@@ -88,6 +93,11 @@ public class SpriteLoader {
   public static Sprite getSprite(String key, String tileName) {
     Pair<Integer, Integer> tileLocationPair = spriteSheetNames.get(key + "__" + tileName);
     return getSprite(key, tileLocationPair.getLeft(), tileLocationPair.getRight());
+  }
+
+  public static void cleanup() {
+    Iterator<Texture> itr = textureList.iterator();
+    while(itr.hasNext()) itr.next().dispose();
   }
 
   private static void loadTileSheet(Texture texture, String[] imageParams) {
