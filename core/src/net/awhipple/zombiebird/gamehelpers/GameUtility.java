@@ -14,9 +14,7 @@ public class GameUtility {
   public static void drawSprite(Sprite sprite, Batch batch, float x, float y, float w, float h) {
     if(sprite != null) {
       batch.begin();
-      sprite.setPosition(x, ZBGame.SCREEN_H - y - sprite.getHeight());
-      sprite.setSize(w, h);
-      sprite.draw(batch);
+      batch.draw(sprite, x, ZBGame.SCREEN_H - y - h, w, h);
       batch.end();
     }
   }
