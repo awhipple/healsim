@@ -1,4 +1,5 @@
 d:assets:0:application/unknown
+i:background.png:1009086:image/png
 i:cursor.png:1718:image/png
 d:icons:0:application/unknown
 i:icons/flashHeal.png:12061:image/png
