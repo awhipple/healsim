@@ -1,5 +1,7 @@
 package net.awhipple.zombiebird.gameobjects;
 
+import net.awhipple.zombiebird.gameworld.GameWorld;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -9,7 +11,9 @@ public class Raid {
   private Healer healer;
   private List<Hero> heroesAlive;
 
-  public Raid(int raidSize) {
+  private GameWorld world;
+
+  public Raid(int raidSize, GameWorld world) {
     this.heroes = new Hero[raidSize];
     for(int i = 0; i < raidSize; i++) {
       Hero.Role role;
@@ -21,7 +25,7 @@ public class Raid {
         default:  role = Hero.Role.DPS;
                   break;
       }
-      heroes[i] = new Hero(this, role);
+      heroes[i] = new Hero(this, role, world);
     }
     healer = new Healer(this, this.heroes[1]);
 

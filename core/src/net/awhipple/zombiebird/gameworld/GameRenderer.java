@@ -4,6 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
@@ -12,6 +13,7 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
 import net.awhipple.zombiebird.ZBGame;
 import net.awhipple.zombiebird.bosses.Boss;
 import net.awhipple.zombiebird.gamehelpers.Color;
+import net.awhipple.zombiebird.gamehelpers.FloatingText;
 import net.awhipple.zombiebird.gamehelpers.Pair;
 import net.awhipple.zombiebird.gamehelpers.SpriteLoader;
 import net.awhipple.zombiebird.gameinterfaces.Healable;
@@ -43,6 +45,7 @@ public class GameRenderer {
   private ShapeRenderer shapeRenderer;
   private Healer healer;
   private SpriteBatch batch;
+  private BitmapFont font;
 
   private static Sprite tankIcon, healerIcon, dpsIcon;
 
@@ -80,6 +83,14 @@ public class GameRenderer {
     }
 
     renderSpellBar(420, ZBGame.SCREEN_H-64);
+
+    batch.begin();
+    Iterator<FloatingText> itr = world.getFloatingTexts().iterator();
+    while(itr.hasNext()) {
+      FloatingText floatingText = itr.next();
+      floatingText.draw(batch);
+    }
+    batch.end();
   }
 
   public static void setHeroPortraitLocations(Hero[] heroes) {

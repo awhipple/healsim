@@ -1,8 +1,11 @@
 package net.awhipple.zombiebird.gameobjects;
 
+import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.sun.org.apache.xpath.internal.operations.Mod;
 
+import net.awhipple.zombiebird.gamehelpers.FloatingText;
+import net.awhipple.zombiebird.gameworld.GameWorld;
 import net.awhipple.zombiebird.mod.Modification;
 import net.awhipple.zombiebird.mod.Rejuvinate;
 
@@ -20,10 +23,11 @@ public class Hero implements net.awhipple.zombiebird.gameinterfaces.Healable {
   private boolean dead;
 
   private Raid raid;
+  private GameWorld world;
 
   private Role role;
 
-  public Hero(Raid raid, Role role) {
+  public Hero(Raid raid, Role role, GameWorld world) {
     this.maxHP = 100f;
     this.currentHP = maxHP;
     this.xPos = this.yPos = 0;
@@ -32,6 +36,7 @@ public class Hero implements net.awhipple.zombiebird.gameinterfaces.Healable {
 
     this.raid = raid;
     this.role = role;
+    this.world = world;
   }
 
   public void dealDamage(float damage) {
@@ -48,6 +53,7 @@ public class Hero implements net.awhipple.zombiebird.gameinterfaces.Healable {
     if(!dead) {
       currentHP += healAmount;
       if(currentHP > maxHP) currentHP = maxHP;
+      world.addFloatingText(new FloatingText(world.getFont(), "+" + Integer.toString((int)healAmount), xPos, yPos));
     }
   }
 
