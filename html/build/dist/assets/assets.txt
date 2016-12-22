@@ -4,6 +4,7 @@ i:cursor.png:1718:image/png
 d:fonts:0:application/unknown
 b:fonts/csfont.bmfc:746:application/unknown
 t:fonts/csfont.fnt:1552:application/unknown
+i:fonts/csfont_0.png:4726:image/png
 b:fonts/csfont_0.tga:262188:application/unknown
 d:icons:0:application/unknown
 i:icons/flashHeal.png:12061:image/png

@@ -1,4 +1,5 @@
 Fix janky text animation
+Attempt to auto load font png and then add desired characters back
 Nicer Icons
 Cooldown display on icons
 rename to healsim
