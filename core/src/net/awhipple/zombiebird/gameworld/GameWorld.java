@@ -27,7 +27,7 @@ public class GameWorld {
   public GameWorld() {
     this.raid = new Raid(20, this);
     this.boss = new Boss(100.0f, this.raid);
-    this.font = new BitmapFont(Gdx.files.internal("fonts/csfont.fnt"), Gdx.files.internal("fonts/csfont_0.tga"), false);
+    this.font = new BitmapFont(Gdx.files.internal("fonts/csfont.fnt"), Gdx.files.internal("fonts/csfont_0.png"), false);
     this.font.setColor(0,1,0,1);
     this.floatingTexts = new ArrayList<FloatingText>();
     GameRenderer.setHeroPortraitLocations(raid.getHeroes());
