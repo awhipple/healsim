@@ -1,6 +1,11 @@
 d:assets:0:application/unknown
 i:background.png:1009086:image/png
 i:cursor.png:1718:image/png
+d:fonts:0:application/unknown
+b:fonts/csfont.bmfc:744:application/unknown
+t:fonts/csfont.fnt:11159:application/unknown
+b:fonts/csfont_0.tga:262188:application/unknown
+b:fonts/csfont_1.tga:262188:application/unknown
 d:icons:0:application/unknown
 i:icons/flashHeal.png:12061:image/png
 i:icons/rejuvenation.png:13859:image/png
