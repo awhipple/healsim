@@ -1,6 +1,6 @@
 package net.awhipple.zombiebird.animations;
 
-public abstract class Animation {
+public class Animation {
 
   protected float progress, duration, x, y, a;
 
@@ -12,7 +12,9 @@ public abstract class Animation {
     this.a = a;
   }
 
-  public abstract void update(float delta);
+  public void update(float delta) {
+    progress += delta;
+  }
 
   public boolean animationComplete() {
     return progress >= duration;

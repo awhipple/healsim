@@ -10,8 +10,8 @@ import net.awhipple.zombiebird.animations.FadeFloat;
 public class FloatingText {
   BitmapFont font;
   String text;
-  Animation animation;
   float x, y;
+  Animation animation;
 
   public FloatingText(BitmapFont font, String text, float x, float y) {
     this.font = font;

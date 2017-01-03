@@ -19,8 +19,8 @@ public class FadeFloat extends Animation {
   }
 
   public void update(float delta) {
+    super.update(delta);
     y -= floatSpeed * delta;
-    progress += delta;
 
     if(progress >= finishedFloatTime) {
       a -= fadeOutSpeed * delta;
