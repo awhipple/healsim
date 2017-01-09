@@ -45,7 +45,6 @@ public class GameRenderer {
   private ShapeRenderer shapeRenderer;
   private Healer healer;
   private SpriteBatch batch;
-  private BitmapFont font;
 
   private static Sprite tankIcon, healerIcon, dpsIcon;
 
@@ -156,12 +155,14 @@ public class GameRenderer {
     List<Pair<Integer, SpellFactory>> keyBinds = world.getRaid().getHealer().getSkillSet();
     Iterator<Pair<Integer, SpellFactory>> itr = keyBinds.iterator();
     int xOffset = 0;
+    Sprite iconFrame = SpriteLoader.getSprite("icons.iconFrame");
     while(itr.hasNext()) {
       Pair<Integer, SpellFactory> keyBind = itr.next();
       SpellFactory spellFactory = keyBind.getRight();
 
       Sprite sprite = spellFactory.getIcon();
-      drawSprite(sprite, batch, x + xOffset - sprite.getWidth() / 2, y - sprite.getHeight() / 2);
+      float iconX = x + xOffset - sprite.getWidth() / 2, iconY = y - sprite.getHeight() / 2;
+      drawSprite(sprite, batch, iconX, iconY);
 
       float displayCooldown;
       if(healer.getHero().isDead()) {
@@ -179,6 +180,8 @@ public class GameRenderer {
       shapeRenderer.end();
       Gdx.gl.glDisable(GL20.GL_BLEND);
       xOffset += 79;
+
+      drawSprite(iconFrame, batch, iconX, iconY);
     }
   }
 }

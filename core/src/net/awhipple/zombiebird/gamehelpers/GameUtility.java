@@ -1,8 +1,10 @@
 package net.awhipple.zombiebird.gamehelpers;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.*;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 
 import net.awhipple.zombiebird.ZBGame;
 

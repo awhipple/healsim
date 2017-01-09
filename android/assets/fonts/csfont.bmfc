@@ -30,8 +30,8 @@ useFixedHeight=0
 forceZero=0
 
 # output file
-outWidth=256
-outHeight=256
+outWidth=512
+outHeight=512
 outBitDepth=32
 fontDescFormat=0
 fourChnlPacked=0
@@ -50,6 +50,6 @@ invB=0
 outlineThickness=3
 
 # selected chars
-chars=43,48-57
+chars=32-126
 
 # imported icon images

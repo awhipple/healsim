@@ -1,5 +1,4 @@
-Attempt to auto load font png (GameWorld::30) and then add desired characters back
-Nicer Icons
+Nicer Icons (constrain icons to frame)
 Cooldown display on icons
 rename to healsim
 Sound

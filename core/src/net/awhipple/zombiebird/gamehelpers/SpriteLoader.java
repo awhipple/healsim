@@ -81,8 +81,7 @@ public class SpriteLoader {
     if(spriteMap.containsKey(key)) {
       return spriteMap.get(key);
     } else {
-      Gdx.app.log("SpriteLoader", "Attempted to load missing sprite, " + key);
-      return null;
+      return loadAsset(key);
     }
   }
 

@@ -12,7 +12,7 @@ public class Heal extends Spell {
 
   private static String ICON_NAME = "icons.flashHeal";
   private static Sprite l_icon;
-  static { l_icon = icon = SpriteLoader.loadAsset(ICON_NAME); }
+  static { l_icon = icon = SpriteLoader.getSprite(ICON_NAME); }
 
   private Healable target;
 

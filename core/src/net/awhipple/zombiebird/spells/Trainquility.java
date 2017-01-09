@@ -13,7 +13,7 @@ public class Trainquility extends Spell {
 
   private static String ICON_NAME = "icons.tranquility";
   private static Sprite l_icon;
-  static { l_icon = icon = SpriteLoader.loadAsset(ICON_NAME); }
+  static { l_icon = icon = SpriteLoader.getSprite(ICON_NAME); }
 
   private static float HEAL_PER_SECOND = 15.0f;
 
