@@ -1,3 +1,4 @@
+Performance issues on laptop
 Nicer Icons (constrain icons to frame)
 Cooldown display on icons
 rename to healsim
